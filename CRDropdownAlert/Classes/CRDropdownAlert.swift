@@ -9,8 +9,12 @@
 import UIKit
 import pop
 
+public protocol CRDropdownAlertDelegate {
+    func dropdownAlertWasTapped(alert :CRDropdownAlert) -> Bool;
+}
+
 /// Inspired by: https://github.com/cwRichardKim/RKDropdownAlert and https://github.com/startupthekid/DropdownAlert/
-public class CRDropdownAlert: UIView {
+public class CRDropdownAlert: UIButton {
     
     // MARK: - Animation
     
@@ -30,7 +34,7 @@ public class CRDropdownAlert: UIView {
     // MARK: - Views
     
     /// Alert title label.
-    lazy var titleLabel: UILabel = {
+    lazy var titleText: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -73,6 +77,8 @@ public class CRDropdownAlert: UIView {
             }
         }
     }
+    
+    public var delegate :CRDropdownAlertDelegate?
     
     // MARK: - Initialization
     
@@ -119,9 +125,9 @@ public extension CRDropdownAlert {
             }
             let dropdown = CRDropdownAlert()
             dropdown.translatesAutoresizingMaskIntoConstraints = false
-            dropdown.titleLabel.text = title
+            dropdown.titleText.text = title
             dropdown.messageLabel.text = message
-            dropdown.titleLabel.textColor = textColor
+            dropdown.titleText.textColor = textColor
             dropdown.messageLabel.textColor = textColor
             dropdown.messageLabel.numberOfLines = 0
             dropdown.backgroundColor = backgroundColor
@@ -151,7 +157,7 @@ public extension CRDropdownAlert {
             
             window.layoutIfNeeded()
             
-            let titleFrame = dropdown.titleLabel.frame;
+            let titleFrame = dropdown.titleText.frame;
             let titleHeight = titleFrame.size.height;
             let messageFrame = dropdown.messageLabel.frame;
             let messageHeight = messageFrame.size.height;
@@ -285,24 +291,38 @@ private extension CRDropdownAlert {
      Common initialization function.
      */
     func commonInit() {
-        self.titleLabel.font = Defaults.TitleFont
+        self.titleText.font = Defaults.TitleFont
         self.messageLabel.font = Defaults.MessageFont
         
-        self.addSubview(self.titleLabel)
+        self.addSubview(self.titleText)
         self.addSubview(self.messageLabel)
         self.setupConstraints()
+        
+        self.addTarget(self, action: #selector(CRDropdownAlert.viewWasTapped(alertView:)), for: .touchUpInside);
+    }
+    
+    @objc
+    private func viewWasTapped(alertView :UIView) {
+        
+        if let delegate = self.delegate {
+            if delegate.dropdownAlertWasTapped(alert: self) {
+                self.dismiss();
+            }
+        } else {
+            self.dismiss();
+        }
     }
     
     /**
      Setup the constraints for the dropdown's labels.
      */
     private func setupConstraints() {
-        self.addConstraint(NSLayoutConstraint(item: self.titleLabel, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0))
-        self.addConstraint(NSLayoutConstraint(item: self.titleLabel, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0))
-        self.addConstraint(NSLayoutConstraint(item: self.titleLabel, attribute: .width, relatedBy: .equal, toItem: self, attribute: .width, multiplier: 1, constant: 0))
+        self.addConstraint(NSLayoutConstraint(item: self.titleText, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0))
+        self.addConstraint(NSLayoutConstraint(item: self.titleText, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0))
+        self.addConstraint(NSLayoutConstraint(item: self.titleText, attribute: .width, relatedBy: .equal, toItem: self, attribute: .width, multiplier: 1, constant: 0))
         
         self.addConstraint(NSLayoutConstraint(item: self.messageLabel, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0))
-        self.addConstraint(NSLayoutConstraint(item: self.messageLabel, attribute: .top, relatedBy: .equal, toItem: self.titleLabel, attribute: .bottom, multiplier: 1, constant: Defaults.VerticalPadding))
+        self.addConstraint(NSLayoutConstraint(item: self.messageLabel, attribute: .top, relatedBy: .equal, toItem: self.titleText, attribute: .bottom, multiplier: 1, constant: Defaults.VerticalPadding))
         self.addConstraint(NSLayoutConstraint(item: self.messageLabel, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: -Defaults.VerticalPadding))
         self.addConstraint(NSLayoutConstraint(item: self.messageLabel, attribute: .width, relatedBy: .equal, toItem: self, attribute: .width, multiplier: 1, constant: 0))
         

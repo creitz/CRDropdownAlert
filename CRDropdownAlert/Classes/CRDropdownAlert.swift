@@ -57,6 +57,8 @@ public class CRDropdownAlert: UIView {
         static var Message                   = "Default message!"
         static var AnimationDuration: Double = 0.25
         static var Duration: Double          = 2
+        static var VerticalPadding           = CGFloat(10)
+        static var TopPadding                = CGFloat(20)
         static var Height: CGFloat           = 90
         static var TitleFont: UIFont         = UIFont.systemFont(ofSize: Defaults.FontSize)
         static var MessageFont: UIFont       = UIFont.systemFont(ofSize: Defaults.FontSize)
@@ -104,6 +106,7 @@ public extension CRDropdownAlert {
                                  backgroundColor: UIColor = Defaults.BackgroundColor,
                                  textColor: UIColor = Defaults.TextColor,
                                  duration: Double = Defaults.Duration) {
+        
         // Ensure that everything happens on the main queue
         DispatchQueue.main.async {
             let windows = UIApplication.shared.windows.filter { $0.windowLevel == UIWindowLevelNormal && !$0.isHidden }
@@ -116,6 +119,7 @@ public extension CRDropdownAlert {
             dropdown.messageLabel.text = message
             dropdown.titleLabel.textColor = textColor
             dropdown.messageLabel.textColor = textColor
+            dropdown.messageLabel.numberOfLines = 0
             dropdown.backgroundColor = backgroundColor
             
             // Construct a padding view that will cover the top of the dropdown in the case of a spring animation where it bounces past it's bounds
@@ -134,6 +138,7 @@ public extension CRDropdownAlert {
             window.addConstraint(NSLayoutConstraint(item: dropdown, attribute: .right, relatedBy: .equal, toItem: window, attribute: .right, multiplier: 1, constant: 0))
             window.addConstraint(NSLayoutConstraint(item: dropdown, attribute: .height, relatedBy: .greaterThanOrEqual, toItem: nil, attribute: .height, multiplier: 1, constant: Defaults.Height))
             window.addConstraint(animatedConstraint)
+            
             // Add the padding view constraints
             window.addConstraint(NSLayoutConstraint(item: paddingView, attribute: .width, relatedBy: .equal, toItem: dropdown, attribute: .width, multiplier: 1, constant: 0))
             window.addConstraint(NSLayoutConstraint(item: paddingView, attribute: .height, relatedBy: .equal, toItem: dropdown, attribute: .height, multiplier: 1, constant: 0))
@@ -142,8 +147,15 @@ public extension CRDropdownAlert {
             
             window.layoutIfNeeded()
             
+            let titleFrame = dropdown.titleLabel.frame;
+            let titleHeight = titleFrame.size.height;
+            let messageFrame = dropdown.messageLabel.frame;
+            let messageHeight = messageFrame.size.height;
+            
+            let contentHeight = Int(messageHeight) + Int(titleHeight);
+            
             let animation = self.popAnimationForAnimationType(animationType: animationType)
-            animation.toValue = Defaults.Height
+            animation.toValue = contentHeight + Int(2 * Defaults.VerticalPadding + Defaults.TopPadding)
             animatedConstraint.pop_add(animation, forKey: "show-dropdown")
             
             dropdown.perform(#selector(dismiss), with: nil, afterDelay: duration + Defaults.AnimationDuration)
@@ -286,8 +298,8 @@ private extension CRDropdownAlert {
         self.addConstraint(NSLayoutConstraint(item: self.titleLabel, attribute: .width, relatedBy: .equal, toItem: self, attribute: .width, multiplier: 1, constant: 0))
         
         self.addConstraint(NSLayoutConstraint(item: self.messageLabel, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0))
-        self.addConstraint(NSLayoutConstraint(item: self.messageLabel, attribute: .top, relatedBy: .equal, toItem: self.titleLabel, attribute: .bottom, multiplier: 1, constant: 0))
-        self.addConstraint(NSLayoutConstraint(item: self.messageLabel, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 0))
+        self.addConstraint(NSLayoutConstraint(item: self.messageLabel, attribute: .top, relatedBy: .equal, toItem: self.titleLabel, attribute: .bottom, multiplier: 1, constant: Defaults.VerticalPadding))
+        self.addConstraint(NSLayoutConstraint(item: self.messageLabel, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: -Defaults.VerticalPadding))
         self.addConstraint(NSLayoutConstraint(item: self.messageLabel, attribute: .width, relatedBy: .equal, toItem: self, attribute: .width, multiplier: 1, constant: 0))
         
         self.layoutIfNeeded()

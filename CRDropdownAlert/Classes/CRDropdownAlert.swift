@@ -4,6 +4,7 @@
 //
 //  Created by Charles Reitz on 3/7/17.
 //
+//  Inspired by: https://github.com/cwRichardKim/RKDropdownAlert and https://github.com/startupthekid/DropdownAlert/
 //
 
 import UIKit
@@ -13,7 +14,6 @@ public protocol CRDropdownAlertDelegate {
     func dropdownAlertWasTapped(alert :CRDropdownAlert) -> Bool;
 }
 
-/// Inspired by: https://github.com/cwRichardKim/RKDropdownAlert and https://github.com/startupthekid/DropdownAlert/
 public class CRDropdownAlert: UIButton {
     
     // MARK: - Animation
@@ -61,8 +61,9 @@ public class CRDropdownAlert: UIButton {
         static var Message                   = "Default message!"
         static var AnimationDuration: Double = 0.25
         static var Duration: Double          = 2
-        static var VerticalPadding           = CGFloat(10)
-        static var TopPadding                = CGFloat(20)
+        static var TopPadding                = CGFloat(22)
+        static var MiddlePadding             = CGFloat(4)
+        static var BottomPadding             = CGFloat(10)
         static var Height: CGFloat           = 90
         static var TitleFont: UIFont         = UIFont.boldSystemFont(ofSize: Defaults.TitleFontSize)
         static var MessageFont: UIFont       = UIFont.systemFont(ofSize: Defaults.FontSize)
@@ -165,7 +166,7 @@ public extension CRDropdownAlert {
             let contentHeight = Int(messageHeight) + Int(titleHeight);
             
             let animation = self.popAnimationForAnimationType(animationType: animationType)
-            animation.toValue = contentHeight + Int(2 * Defaults.VerticalPadding + Defaults.TopPadding)
+            animation.toValue = contentHeight + Int(Defaults.TopPadding + Defaults.MiddlePadding + Defaults.BottomPadding);
             animatedConstraint.pop_add(animation, forKey: "show-dropdown")
             
             dropdown.perform(#selector(dismiss), with: nil, afterDelay: duration + Defaults.AnimationDuration)
@@ -322,8 +323,8 @@ private extension CRDropdownAlert {
         self.addConstraint(NSLayoutConstraint(item: self.titleText, attribute: .width, relatedBy: .equal, toItem: self, attribute: .width, multiplier: 1, constant: 0))
         
         self.addConstraint(NSLayoutConstraint(item: self.messageLabel, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0))
-        self.addConstraint(NSLayoutConstraint(item: self.messageLabel, attribute: .top, relatedBy: .equal, toItem: self.titleText, attribute: .bottom, multiplier: 1, constant: Defaults.VerticalPadding))
-        self.addConstraint(NSLayoutConstraint(item: self.messageLabel, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: -Defaults.VerticalPadding))
+        self.addConstraint(NSLayoutConstraint(item: self.messageLabel, attribute: .top, relatedBy: .equal, toItem: self.titleText, attribute: .bottom, multiplier: 1, constant: Defaults.MiddlePadding))
+        self.addConstraint(NSLayoutConstraint(item: self.messageLabel, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: -Defaults.BottomPadding))
         self.addConstraint(NSLayoutConstraint(item: self.messageLabel, attribute: .width, relatedBy: .equal, toItem: self, attribute: .width, multiplier: 1, constant: 0))
         
         self.layoutIfNeeded()

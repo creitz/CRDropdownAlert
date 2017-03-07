@@ -9,7 +9,7 @@
 import UIKit
 import pop
 
-/// Inspired by: https://github.com/cwRichardKim/CRDropdownAlert and https://github.com/startupthekid/CRDropdownAlert/
+/// Inspired by: https://github.com/cwRichardKim/RKDropdownAlert and https://github.com/startupthekid/DropdownAlert/
 public class CRDropdownAlert: UIView {
     
     // MARK: - Animation

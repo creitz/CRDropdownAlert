@@ -60,11 +60,15 @@ public class CRDropdownAlert: UIView {
         static var VerticalPadding           = CGFloat(10)
         static var TopPadding                = CGFloat(20)
         static var Height: CGFloat           = 90
-        static var TitleFont: UIFont         = UIFont.systemFont(ofSize: Defaults.FontSize)
+        static var TitleFont: UIFont         = UIFont.boldSystemFont(ofSize: Defaults.TitleFontSize)
         static var MessageFont: UIFont       = UIFont.systemFont(ofSize: Defaults.FontSize)
+        static var TitleFontSize: CGFloat    = 16 {
+            didSet {
+                TitleFont = TitleFont.withSize(TitleFontSize)
+            }
+        }
         static var FontSize: CGFloat         = 14 {
             didSet {
-                TitleFont = TitleFont.withSize(FontSize)
                 MessageFont = MessageFont.withSize(FontSize)
             }
         }

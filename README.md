@@ -33,7 +33,7 @@ public enum AnimationType {
 Example:
 
 ```swift
-DropdownAlert.showWithAnimation(.Basic(timingFunction: CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)), title: "New Message", message: "I'm on my way!", duration: 3)
+CRDropdownAlert.showWithAnimation(.Basic(timingFunction: CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)), title: "New Message", message: "I'm on my way!", duration: 3)
 ```
 
 ### Customization

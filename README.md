@@ -6,9 +6,9 @@ A clean, customizable Swift alternative to [RKDropdownAlert](https://github.com/
 
 This project was inspired by [RKDropdownAlert](https://github.com/cwRichardKim/RKDropdownAlert) and [DropdownAlert](https://github.com/startupthekid/DropdownAlert).  It combines the best of each of them. 
 
-*Written in Swift 3 (at the time of writing this, DropdownAlert had not yet been updated to Swift 3)
-*Responsive      - Uses Autolayout
-*Touch Activated - Supports delegates for responding to user clicks
+* Written in Swift 3 (at the time of writing this, DropdownAlert had not yet been updated to Swift 3)
+* Responsive      - Uses Autolayout
+* Touch Activated - Supports delegates for responding to user clicks
 
 ## Usage
 

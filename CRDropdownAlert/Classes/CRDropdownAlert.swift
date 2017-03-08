@@ -79,7 +79,7 @@ public class CRDropdownAlert: UIButton {
         }
     }
     
-    public var delegate :CRDropdownAlertDelegate?
+    var delegate :CRDropdownAlertDelegate?
     
     // MARK: - Initialization
     
@@ -112,11 +112,12 @@ public extension CRDropdownAlert {
      - parameter duration:        How long the dropdown will be shown before it's automatically dismissmed.
      */
     class func showWithAnimation(animationType: AnimationType = .Basic(timingFunction: CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)),
-                                 title: String = Defaults.Title,
-                                 message: String = Defaults.Message,
-                                 backgroundColor: UIColor = Defaults.BackgroundColor,
-                                 textColor: UIColor = Defaults.TextColor,
-                                 duration: Double = Defaults.Duration) {
+                                 title           :String = Defaults.Title,
+                                 message         :String = Defaults.Message,
+                                 backgroundColor :UIColor = Defaults.BackgroundColor,
+                                 textColor       :UIColor = Defaults.TextColor,
+                                 duration        :Double = Defaults.Duration,
+                                 delegate        :CRDropdownAlertDelegate? = nil) {
         
         // Ensure that everything happens on the main queue
         DispatchQueue.main.async {
@@ -132,6 +133,7 @@ public extension CRDropdownAlert {
             dropdown.messageLabel.textColor = textColor
             dropdown.messageLabel.numberOfLines = 0
             dropdown.backgroundColor = backgroundColor
+            dropdown.delegate = delegate;
             
             // Construct a padding view that will cover the top of the dropdown in the case of a spring animation where it bounces past it's bounds
             let paddingView = UIView()

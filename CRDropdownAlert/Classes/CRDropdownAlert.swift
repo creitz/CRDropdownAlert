@@ -79,6 +79,8 @@ public class CRDropdownAlert: UIButton {
         }
     }
     
+    static let CRDropdownAlertDismissAllNotification = "CRDropdownAlertDismissAllNotification";
+    
     var delegate :CRDropdownAlertDelegate?
     
     // MARK: - Initialization
@@ -193,7 +195,14 @@ public extension CRDropdownAlert {
             dismissAnimation?.toValue = -Defaults.Height
             dismissAnimation?.duration = Defaults.AnimationDuration
             animatedConstraint.pop_add(dismissAnimation, forKey: "dropdown-dismiss")
+            DispatchQueue.main.asyncAfter(deadline: .now() + Defaults.AnimationDuration) {
+                dropdown.removeFromSuperview();
+            }
         }
+    }
+    
+    public class func dismissAll() {
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: CRDropdownAlertDismissAllNotification), object: nil);
     }
     
     /**
@@ -302,6 +311,8 @@ private extension CRDropdownAlert {
         self.setupConstraints()
         
         self.addTarget(self, action: #selector(CRDropdownAlert.viewWasTapped(alertView:)), for: .touchUpInside);
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(CRDropdownAlert.dismiss), name: NSNotification.Name(rawValue: CRDropdownAlert.CRDropdownAlertDismissAllNotification), object: nil);
     }
     
     @objc

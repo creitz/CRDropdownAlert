@@ -31,9 +31,5 @@ CRDropdownAlert is a simple, easy-to-use alternative to DropdownAlert and RKDrop
 
   s.source_files = 'CRDropdownAlert/Classes/*'
   
-  s.resource_bundles = {
-    'DropdownAlert' => ['CRDropdownAlert/Assets/*.*']
-  }
-
   s.dependency 'pop'
 end

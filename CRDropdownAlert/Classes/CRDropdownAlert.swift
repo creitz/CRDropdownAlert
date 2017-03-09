@@ -260,7 +260,7 @@ private class CRCustomDropdownAlert : CRDropdownAlert {
 public extension CRDropdownAlert {
     
     /**
-     Show the dropdown alert.
+     Show the dropdown alert. This should be called from the main thread.
      
      - parameter animationType:   The kind of animation that will be shown.
      - parameter view:            The custom view for the dropwdown.
@@ -271,23 +271,21 @@ public extension CRDropdownAlert {
                      view            :UIView,
                      backgroundColor :UIColor = Defaults.BackgroundColor,
                      duration        :Double = Defaults.Duration,
-                     delegate        :CRDropdownAlertDelegate? = nil) {
+                     delegate        :CRDropdownAlertDelegate? = nil) -> CRDropdownAlert? {
         
         let windows = UIApplication.shared.windows.filter { $0.windowLevel == UIWindowLevelNormal && !$0.isHidden }
         guard let window = windows.first else {
-            return;
+            return nil;
         }
         
-        // Ensure that everything happens on the main queue
-        DispatchQueue.main.async {
-            
-            let dropdown = CRCustomDropdownAlert.init(view: view, backgroundColor: backgroundColor, delegate: delegate);
-            show(dropdownAlert: dropdown, window: window, animationType: animationType, duration: duration);
-        }
+        let dropdown = CRCustomDropdownAlert.init(view: view, backgroundColor: backgroundColor, delegate: delegate);
+        show(dropdownAlert: dropdown, window: window, animationType: animationType, duration: duration);
+        
+        return dropdown;
     }
     
     /**
-     Show the dropdown alert.
+     Show the dropdown alert. This should be called from the main thread.
      
      - parameter animationType:   The kind of animation that will be shown.
      - parameter title:           Dropdown title.
@@ -302,19 +300,17 @@ public extension CRDropdownAlert {
                      backgroundColor :UIColor = Defaults.BackgroundColor,
                      textColor       :UIColor = Defaults.TextColor,
                      duration        :Double = Defaults.Duration,
-                     delegate        :CRDropdownAlertDelegate? = nil) {
+                     delegate        :CRDropdownAlertDelegate? = nil) -> CRDropdownAlert? {
         
         let windows = UIApplication.shared.windows.filter { $0.windowLevel == UIWindowLevelNormal && !$0.isHidden }
         guard let window = windows.first else {
-            return;
+            return nil;
         }
         
-        // Ensure that everything happens on the main queue
-        DispatchQueue.main.async {
-            
-            let dropdown = CRTextDropdownAlert.init(title: title, message: message, backgroundColor: backgroundColor, textColor: textColor, delegate: delegate);
-            show(dropdownAlert: dropdown, window: window, animationType: animationType, duration: duration);
-        }
+        let dropdown = CRTextDropdownAlert.init(title: title, message: message, backgroundColor: backgroundColor, textColor: textColor, delegate: delegate);
+        show(dropdownAlert: dropdown, window: window, animationType: animationType, duration: duration);
+        
+        return dropdown;
     }
     
     private static func show(dropdownAlert :CRDropdownAlert, window :UIWindow, animationType :AnimationType, duration :Double) {

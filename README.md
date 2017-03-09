@@ -1,5 +1,3 @@
-# UNDER CONSTRUCTION
-
 # CRDropdownAlert
 
 A clean, customizable Swift alternative to [RKDropdownAlert](https://github.com/cwRichardKim/RKDropdownAlert) and [DropdownAlert](https://github.com/startupthekid/DropdownAlert) that supports custom views. Much credit to each of their contributors, especially DropdownAlert.

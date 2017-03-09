@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-CRDropdownAlert is a simple, easy-to-use alternative to DropdownAlert and RKDropdownAlert, written entirely in Swift. CRDropdownAlert was inspired by DropdownAlert, but adds functionality for custom views.
+CRDropdownAlert is a simple, easy-to-use alternative to DropdownAlert and RKDropdownAlert, written entirely in Swift. CRDropdownAlert was inspired by DropdownAlert, and adds functionality for custom views.
                        DESC
 
   s.homepage         = 'https://github.com/creitz/CRDropdownAlert'

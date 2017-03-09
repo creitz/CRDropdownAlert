@@ -248,7 +248,6 @@ private class CRCustomDropdownAlert : CRDropdownAlert {
     override func getHeight() -> CGFloat {
         
         if let contentView = self.contentView {
-            let frame = contentView.frame;
             return Defaults.TopPadding + contentView.frame.size.height + Defaults.BottomPadding;
         }
         

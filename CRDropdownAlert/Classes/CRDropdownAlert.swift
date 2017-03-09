@@ -123,6 +123,7 @@ public class CRDropdownAlert: UIButton {
     
     fileprivate func getHeight() -> CGFloat {
         assert(false, "Subclasses need to override getHeight");
+        return 0;
     }
     
 }

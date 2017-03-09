@@ -87,7 +87,7 @@ parentView.addSubview(progressView);
 CRDropdownAlert.show(animationType: .Spring(bounce: 0.5, speed: 0.5), view: parentView, backgroundColor: .black, duration: Double(3));
 
 ```
-CRDropdownalert uses autolayout to determine sizing. When you pass a custom view to show(), the view will be centered horizontally and given some padding around the edges. You will probably need to set progressView.translatesAutoresizingMaskIntoConstraints to false. progressView.translatesAutoresizingMaskIntoConstraints will automatically be set to false for you on the customView.
+CRDropdownalert uses autolayout to determine sizing. When you pass a custom view to show(), the view will be centered horizontally and given some padding around the edges. You will probably need to set progressView.translatesAutoresizingMaskIntoConstraints to false. translatesAutoresizingMaskIntoConstraints will automatically be set to false for you on the customView.
 
 ## Support
 

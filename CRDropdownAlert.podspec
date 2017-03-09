@@ -24,7 +24,7 @@ CRDropdownAlert is a simple, easy-to-use alternative to DropdownAlert and RKDrop
   s.homepage         = 'https://github.com/creitz/CRDropdownAlert'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Charles Reitz' => 'cgreitz@gmail.com' }
-  s.source           = { :git => 'git@github.com:creitz/CRDropdownAlert.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/creitz/CRDropdownAlert.git', :tag => s.version.to_s }
   s.social_media_url = 'https://www.linkedin.com/in/reitzcharles/'
 
   s.ios.deployment_target = '9.0'

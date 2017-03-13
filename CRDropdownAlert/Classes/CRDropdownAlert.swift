@@ -271,15 +271,20 @@ public extension CRDropdownAlert {
                      view            :UIView,
                      backgroundColor :UIColor = Defaults.BackgroundColor,
                      duration        :Double = Defaults.Duration,
+                     window          :UIWindow? = nil,
                      delegate        :CRDropdownAlertDelegate? = nil) -> CRDropdownAlert? {
         
-        let windows = UIApplication.shared.windows.filter { $0.windowLevel == UIWindowLevelNormal && !$0.isHidden }
-        guard let window = windows.first else {
-            return nil;
+        var theWindow = window;
+        
+        if theWindow == nil {
+            theWindow = getMainWindow();
+            if theWindow == nil {
+                return nil;
+            }
         }
         
         let dropdown = CRCustomDropdownAlert.init(view: view, backgroundColor: backgroundColor, delegate: delegate);
-        show(dropdownAlert: dropdown, window: window, animationType: animationType, duration: duration);
+        show(dropdownAlert: dropdown, window: theWindow!, animationType: animationType, duration: duration);
         
         return dropdown;
     }
@@ -300,15 +305,20 @@ public extension CRDropdownAlert {
                      backgroundColor :UIColor = Defaults.BackgroundColor,
                      textColor       :UIColor = Defaults.TextColor,
                      duration        :Double = Defaults.Duration,
+                     window          :UIWindow? = nil,
                      delegate        :CRDropdownAlertDelegate? = nil) -> CRDropdownAlert? {
         
-        let windows = UIApplication.shared.windows.filter { $0.windowLevel == UIWindowLevelNormal && !$0.isHidden }
-        guard let window = windows.first else {
-            return nil;
+        var theWindow = window;
+        
+        if theWindow == nil {
+            theWindow = getMainWindow();
+            if theWindow == nil {
+                return nil;
+            }
         }
         
         let dropdown = CRTextDropdownAlert.init(title: title, message: message, backgroundColor: backgroundColor, textColor: textColor, delegate: delegate);
-        show(dropdownAlert: dropdown, window: window, animationType: animationType, duration: duration);
+        show(dropdownAlert: dropdown, window: theWindow!, animationType: animationType, duration: duration);
         
         return dropdown;
     }
@@ -358,6 +368,15 @@ public extension CRDropdownAlert {
     
     public class func dismissAll() {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: CRDropdownAlertDismissAllNotification), object: nil);
+    }
+    
+    private class func getMainWindow() -> UIWindow? {
+        
+        let windows = UIApplication.shared.windows.filter { $0.windowLevel == UIWindowLevelNormal && !$0.isHidden }
+        if let window = windows.first {
+            return window;
+        }
+        return nil;
     }
     
     /**

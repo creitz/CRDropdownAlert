@@ -87,6 +87,8 @@ CRDropdownAlert.show(animationType: .Spring(bounce: 0.5, speed: 0.5), view: pare
 ```
 CRDropdownalert uses autolayout to determine sizing. When you pass a custom view to show(), the view will be centered horizontally and given some padding around the edges. You will probably need to set progressView.translatesAutoresizingMaskIntoConstraints to false. translatesAutoresizingMaskIntoConstraints will automatically be set to false for you on the customView.
 
+You can also pass a custom window from which the dropdown should be launched. 
+
 ## Support
 
 Feel free to open an issue or issue a PR! Check out the [contribution guide](CRDropdownAlert/CHANGELOG.md) for more info.

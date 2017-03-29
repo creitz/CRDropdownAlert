@@ -64,6 +64,8 @@ public class CRDropdownAlert: UIButton {
     
     var delegate :CRDropdownAlertDelegate?
     
+    fileprivate var animationConstraint :NSLayoutConstraint!
+    
     // MARK: - Initialization
     
     convenience public init() {
@@ -328,8 +330,8 @@ public extension CRDropdownAlert {
         dropdownAlert.addToWindow(window);
         
         // Constraint that'll be animated
-        let animatedConstraint = NSLayoutConstraint(item: dropdownAlert, attribute: .bottom, relatedBy: .equal, toItem: window, attribute: .top, multiplier: 1, constant: 0);
-        window.addConstraint(animatedConstraint);
+        dropdownAlert.animationConstraint = NSLayoutConstraint(item: dropdownAlert, attribute: .bottom, relatedBy: .equal, toItem: window, attribute: .top, multiplier: 1, constant: 0);
+        window.addConstraint(dropdownAlert.animationConstraint);
         
         window.layoutIfNeeded();
         
@@ -337,7 +339,7 @@ public extension CRDropdownAlert {
         
         let animation = self.popAnimationForAnimationType(animationType: animationType);
         animation.toValue = height;
-        animatedConstraint.pop_add(animation, forKey: "show-dropdown");
+        dropdownAlert.animationConstraint.pop_add(animation, forKey: "show-dropdown");
         
         dropdownAlert.perform(#selector(dismiss), with: nil, afterDelay: duration + Defaults.AnimationDuration)
     }
@@ -348,11 +350,7 @@ public extension CRDropdownAlert {
      - parameter dropdown: Dropdown object to dismiss.
      */
     private class func dismissAlert(dropdown: CRDropdownAlert) {
-        guard let window = dropdown.superview as? UIWindow else {
-            return
-        }
-        let constraints = window.constraints.filter { ($0.firstItem === dropdown || $0.secondItem === dropdown) && ($0.firstAttribute == .bottom || $0.secondAttribute == .bottom) && $0.isActive }
-        guard let animatedConstraint = constraints.first else {
+        guard let animatedConstraint = dropdown.animationConstraint else {
             return
         }
         DispatchQueue.main.async {

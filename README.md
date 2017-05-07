@@ -1,5 +1,10 @@
 # CRDropdownAlert
 
+![](https://img.shields.io/badge/Swift-3.0-blue.svg?style=flat)
+[![Version](https://img.shields.io/cocoapods/v/CRDropdownAlert.svg?style=flat)](http://cocoapods.org/pods/CRDropdownAlert)
+[![License](https://img.shields.io/cocoapods/l/CRDropdownAlert.svg?style=flat)](http://cocoapods.org/pods/CRDropdownAlert)
+[![Platform](https://img.shields.io/cocoapods/p/CRDropdownAlert.svg?style=flat)](http://cocoapods.org/pods/CRDropdownAlert)
+
 A clean, customizable Swift alternative to [RKDropdownAlert](https://github.com/cwRichardKim/RKDropdownAlert) and [DropdownAlert](https://github.com/startupthekid/DropdownAlert) that supports custom views. Much credit to each of their contributors, especially DropdownAlert.
 
 ## Overview

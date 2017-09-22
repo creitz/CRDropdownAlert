@@ -1,3 +1,7 @@
+# 1.1.0
+
+Update to swift 4.0
+
 # 1.0.4
 
 Fix not animating dropdown dismissal

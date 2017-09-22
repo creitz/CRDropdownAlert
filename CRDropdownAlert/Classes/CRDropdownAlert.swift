@@ -271,8 +271,8 @@ public extension CRDropdownAlert {
      */
     static func show(animationType: AnimationType = .Basic(timingFunction: CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)),
                      view            :UIView,
-                     backgroundColor :UIColor = Defaults.BackgroundColor,
-                     duration        :Double = Defaults.Duration,
+                     backgroundColor :UIColor = defaultBackgroundColor,
+                     duration        :Double = defaultDuration,
                      window          :UIWindow? = nil,
                      delegate        :CRDropdownAlertDelegate? = nil) -> CRDropdownAlert? {
         
@@ -302,11 +302,11 @@ public extension CRDropdownAlert {
      - parameter duration:        How long the dropdown will be shown before it's automatically dismissmed.
      */
     static func show(animationType: AnimationType = .Basic(timingFunction: CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)),
-                     title           :String = Defaults.Title,
-                     message         :String = Defaults.Message,
-                     backgroundColor :UIColor = Defaults.BackgroundColor,
-                     textColor       :UIColor = Defaults.TextColor,
-                     duration        :Double = Defaults.Duration,
+                     title           :String = defaultTitle,
+                     message         :String = defaultMessage,
+                     backgroundColor :UIColor = defaultBackgroundColor,
+                     textColor       :UIColor = defaultTextColor,
+                     duration        :Double = defaultDuration,
                      window          :UIWindow? = nil,
                      delegate        :CRDropdownAlertDelegate? = nil) -> CRDropdownAlert? {
         
@@ -380,6 +380,7 @@ public extension CRDropdownAlert {
     /**
      Dismiss the dropdown.
      */
+    @objc
     public func dismiss() {
         type(of: self).dismissAlert(dropdown: self)
     }

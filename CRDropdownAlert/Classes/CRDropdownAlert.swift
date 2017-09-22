@@ -267,7 +267,7 @@ public extension CRDropdownAlert {
      - parameter animationType:   The kind of animation that will be shown.
      - parameter view:            The custom view for the dropwdown.
      - parameter backgroundColor: Background color of the dropdown.
-     - parameter duration:        How long the dropdown will be shown before it's automatically dismissmed.
+     - parameter duration:        How long the dropdown will be shown before it's automatically dismissed.
      */
     static func show(animationType: AnimationType = .Basic(timingFunction: CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)),
                      view            :UIView,

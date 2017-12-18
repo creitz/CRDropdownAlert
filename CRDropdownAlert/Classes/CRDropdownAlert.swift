@@ -43,7 +43,7 @@ public class CRDropdownAlert: UIButton {
         static var Message                   = "Default message!"
         static var AnimationDuration: Double = 0.25
         static var Duration: Double          = 2
-        static var TopPadding                = CGFloat(22)
+        static var TopPadding                = Device.IS_IPHONE_X ? CGFloat(35) : CGFloat(22)
         static var MiddlePadding             = CGFloat(4)
         static var BottomPadding             = CGFloat(10)
         static var TitleFont: UIFont         = UIFont.boldSystemFont(ofSize: Defaults.TitleFontSize)
@@ -60,13 +60,25 @@ public class CRDropdownAlert: UIButton {
         }
     }
     
+    // MARK: - Utils
+    
+    struct Device {
+        
+        static let IS_IPHONE         = UI_USER_INTERFACE_IDIOM() == .phone
+        static let SCREEN_WIDTH      = UIScreen.main.bounds.size.width
+        static let SCREEN_HEIGHT     = UIScreen.main.bounds.size.height
+        static let SCREEN_MAX_LENGTH = max(SCREEN_WIDTH, SCREEN_HEIGHT)
+        static let IS_IPHONE_X       = IS_IPHONE && (SCREEN_MAX_LENGTH == 812.0)
+    }
+    
+    // MARK: - Initialization
+    
     static let CRDropdownAlertDismissAllNotification = "CRDropdownAlertDismissAllNotification";
     
     var delegate :CRDropdownAlertDelegate?
     
     fileprivate var animationConstraint :NSLayoutConstraint!
     
-    // MARK: - Initialization
     
     convenience public init() {
         self.init(frame: CGRect.zero)

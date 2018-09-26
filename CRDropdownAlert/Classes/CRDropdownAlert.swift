@@ -281,7 +281,7 @@ public extension CRDropdownAlert {
      - parameter backgroundColor: Background color of the dropdown.
      - parameter duration:        How long the dropdown will be shown before it's automatically dismissed.
      */
-    static func show(animationType: AnimationType = .Basic(timingFunction: CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)),
+    static func show(animationType: AnimationType = .Basic(timingFunction: CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeIn)),
                      view            :UIView,
                      backgroundColor :UIColor = defaultBackgroundColor,
                      duration        :Double = defaultDuration,
@@ -313,7 +313,7 @@ public extension CRDropdownAlert {
      - parameter textColor:       Text color of the dropdown.
      - parameter duration:        How long the dropdown will be shown before it's automatically dismissmed.
      */
-    static func show(animationType: AnimationType = .Basic(timingFunction: CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)),
+    static func show(animationType: AnimationType = .Basic(timingFunction: CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeIn)),
                      title           :String = defaultTitle,
                      message         :String = defaultMessage,
                      backgroundColor :UIColor = defaultBackgroundColor,
@@ -382,7 +382,7 @@ public extension CRDropdownAlert {
     
     private class func getMainWindow() -> UIWindow? {
         
-        let windows = UIApplication.shared.windows.filter { $0.windowLevel == UIWindowLevelNormal && !$0.isHidden }
+        let windows = UIApplication.shared.windows.filter { $0.windowLevel == UIWindow.Level.normal && !$0.isHidden }
         if let window = windows.first {
             return window;
         }

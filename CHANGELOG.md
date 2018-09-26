@@ -1,10 +1,14 @@
+# 1.1.2
+
+Update to Swift 4.2
+
 # 1.1.1
 
 Add support for iPhone X
 
 # 1.1.0
 
-Update to swift 4.0
+Update to Swift 4.0
 
 # 1.0.4
 

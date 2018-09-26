@@ -1,6 +1,6 @@
 # CRDropdownAlert
 
-![](https://img.shields.io/badge/Swift-4.0-blue.svg?style=flat)
+![](https://img.shields.io/badge/Swift-4.2-blue.svg?style=flat)
 [![Version](https://img.shields.io/cocoapods/v/CRDropdownAlert.svg?style=flat)](http://cocoapods.org/pods/CRDropdownAlert)
 [![License](https://img.shields.io/cocoapods/l/CRDropdownAlert.svg?style=flat)](http://cocoapods.org/pods/CRDropdownAlert)
 [![Platform](https://img.shields.io/cocoapods/p/CRDropdownAlert.svg?style=flat)](http://cocoapods.org/pods/CRDropdownAlert)
@@ -11,7 +11,7 @@ A clean, customizable Swift alternative to [RKDropdownAlert](https://github.com/
 
 This project was inspired by [RKDropdownAlert](https://github.com/cwRichardKim/RKDropdownAlert) and [DropdownAlert](https://github.com/startupthekid/DropdownAlert).  It combines the best of each of them. 
 
-* Written in Swift 4 (at the time of writing this, DropdownAlert had not yet been updated to Swift 3)
+* Written in Swift 4.2 (at the time of writing this, DropdownAlert had not yet been updated to Swift 3)
 * Responsive      - Uses Autolayout
 * Touch Activated - Supports delegates for responding to user clicks
 * Supports custom views - Don't restrict yourself to a title and a message. You can create a custom view and hand it off to CRDropdownAlert.
@@ -39,7 +39,8 @@ public enum AnimationType {
 Example (the args besides title and message are optional):
 
 ```swift
-CRDropdownAlert.showWithAnimation(.Basic(timingFunction: CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)), title: "New Message", message: "I'm on my way!", duration: Double(3))
+CRDropdownAlert.show(animationType: .Basic(timingFunction: CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeIn)), title: "New Message", message: "I'm on my way!")
+
 ```
 
 ### Customization
@@ -70,7 +71,7 @@ DropdownAlert.defaultBackgroundColor = UIColor.blueColor()
 To use a custom view rather than the built-in title and message labels (the args besides view are optional):
 
 ```swift
-CRDropdownAlert.show(animationType: .Spring(bounce: 0.5, speed: 0.5), view: customView, backgroundColor: .white, duration: Double(3));
+CRDropdownAlert.show(animationType: .Spring(bounce: 0.5, speed: 0.5), view: customView, backgroundColor: .white, duration: 3);
 ```
 
 For example, this is how I create a progress bar in a CRDropdownAlert:
@@ -87,7 +88,7 @@ parentView.addConstraint(NSLayoutConstraint(item: progressView, attribute: .top,
 parentView.addConstraint(NSLayoutConstraint(item: progressView, attribute: .bottom, relatedBy: .equal, toItem: parentView, attribute: .bottom, multiplier: 1, constant: -10));
 parentView.addSubview(progressView);
 
-CRDropdownAlert.show(animationType: .Spring(bounce: 0.5, speed: 0.5), view: parentView, backgroundColor: .black, duration: Double(3));
+CRDropdownAlert.show(animationType: .Spring(bounce: 0.5, speed: 0.5), view: parentView, backgroundColor: .black, duration: 3);
 
 ```
 CRDropdownalert uses autolayout to determine sizing. When you pass a custom view to show(), the view will be centered horizontally and given some padding around the edges. You will probably need to set progressView.translatesAutoresizingMaskIntoConstraints to false. translatesAutoresizingMaskIntoConstraints will automatically be set to false for you on the customView.

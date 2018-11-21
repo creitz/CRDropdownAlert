@@ -43,7 +43,7 @@ public class CRDropdownAlert: UIButton {
         static var Message                   = "Default message!"
         static var AnimationDuration: Double = 0.25
         static var Duration: Double          = 2
-        static var TopPadding                = Device.IS_IPHONE_X ? CGFloat(35) : CGFloat(22)
+        static var TopPadding                = Device.IS_ANY_X_IPHONE ? CGFloat(35) : CGFloat(22)
         static var MiddlePadding             = CGFloat(4)
         static var BottomPadding             = CGFloat(10)
         static var TitleFont: UIFont         = UIFont.boldSystemFont(ofSize: Defaults.TitleFontSize)
@@ -69,6 +69,8 @@ public class CRDropdownAlert: UIButton {
         static let SCREEN_HEIGHT     = UIScreen.main.bounds.size.height
         static let SCREEN_MAX_LENGTH = max(SCREEN_WIDTH, SCREEN_HEIGHT)
         static let IS_IPHONE_X       = IS_IPHONE && (SCREEN_MAX_LENGTH == 812.0)
+        static let IS_IPHONE_X_MAX   = IS_IPHONE && (SCREEN_MAX_LENGTH == 896.0)
+        static let IS_ANY_X_IPHONE   = IS_IPHONE_X || IS_IPHONE_X_MAX
     }
     
     // MARK: - Initialization

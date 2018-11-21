@@ -1,3 +1,7 @@
+# 1.1.3
+
+Add support for iPhone XS Max and XR
+
 # 1.1.2
 
 Update to Swift 4.2
